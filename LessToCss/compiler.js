@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const less = require('less');
+const lessPluginCss = require('less-plugin-clean-css');
 
 
 /**
@@ -10,9 +11,11 @@ const less = require('less');
  */
 module.exports = function compileLess(callback, filePath) {
     // Set the paths relative to the less file in order to resolve imports
+    var cleanCSSPlugin = new lessPluginCss({ advanced: true });
     const config = {
         'path': [path.dirname(filePath)],
         'filename': filePath,
+        'plugins': [cleanCSSPlugin]
     };
 
     let content;
